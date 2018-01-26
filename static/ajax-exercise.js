@@ -48,10 +48,13 @@ function orderMelons(evt) {
         "melon_type": $("#melon-type-field").val()
     };
 
-    $("#order-status").addClass("order-error");
-
     $.post(url, formInputs, function (result) {
-        $('#order-status').html(result['code'] + ": " + result['msg']); });
+        $("#order-status").removeClass("order-error");
+        $('#order-status').html(result['code'] + ": " + result['msg']);
+        if (result['code'] === "ERROR") {
+            $("#order-status").addClass("order-error");
+        }
+    });
 
     // TODO: show the result message after your form
     // TODO: if the result code is ERROR, make it show up in red (see our CSS!)
